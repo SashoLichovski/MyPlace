@@ -1,8 +1,27 @@
-﻿@{
+﻿@model List<MyPlace.Models.ImageViewModel>
+@section Styles {
+    <link rel="stylesheet" href="~/css/feed.css" />
+}
+@{
     ViewData["Title"] = "Home Page";
 }
+<div>
+    <form asp-action="Index" method="post" style="width: 30%">
+        <input placeholder="Search" name="email" class="form-control" />
+        <input type="submit" name="email" class="btn btn-info"/>
+    </form>
+</div>
+<div class="container customContainer">
+    <br />
+    @foreach (var image in Model)
+    {
+    <div class="card" style="width: 18rem;">
+        <img src="@image.ImageUrl" class="card-img-top" alt="...">
+        <div class="card-body">
+            <a asp-action="UserImages" asp-route-userId="@image.UserId" class="card-title">@image.User.Email</a>
+            <p class="card-text">@image.DateCreated.ToString("dd/mm/yyyy hh:mm")</p>
+        </div>
+    </div>
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

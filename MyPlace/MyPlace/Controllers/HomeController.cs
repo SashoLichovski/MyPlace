@@ -1,41 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyPlace.Models;
 using MyPlace.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace MyPlace.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IImageService imageService;
 
-        public IImageService ImageService { get; }
-
-        public HomeController(ILogger<HomeController> logger, IImageService imageService)
+        public HomeController(IImageService imageService)
         {
-            _logger = logger;
-            ImageService = imageService;
+            this.imageService = imageService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string email)
         {
-            return View();
+            var modelList = new List<ImageViewModel>();
+            if (email != null)
+            {
+                modelList = imageService.GetSearch(email);
+            }
+            else
+            {
+                modelList = imageService.GetAll();
+            }
+            return View(modelList);
         }
 
-        public IActionResult Privacy()
+        public IActionResult UserImages(string userId)
         {
-            return View();
+            List<ImageViewModel> modelList = imageService.GetUserImages(userId);
+            return View(modelList);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult ActionMessage(ActionMessage errorMessage)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(errorMessage);
         }
     }
 }

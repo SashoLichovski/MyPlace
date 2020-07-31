@@ -1,0 +1,44 @@
+﻿@model List<MyPlace.Models.ImageViewModel>
+@{
+    ViewData["Title"] = "Overview";
+}
+
+<div class="container">
+<h3>My images</h3>
+<hr />
+<a class="btn btn-success btn-lg" asp-action="AddImage">Add new Image</a>
+<br />
+<br />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Date posted</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var image in Model)
+            {
+                <tr>
+                    <td><img src="@image.ImageUrl" width="50" height="50" /></td>
+                    <td>@image.DateCreated.ToString("dd/mm/yyyy hh:mm")</td>
+                    @if (!image.IsPrivate)
+                    {
+                        <td>Public</td>
+                    }
+                    else
+                    {
+                        <td>Private</td>
+                    }
+                    <td>
+                        <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-imageId="@image.Id">Edit</a> |
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-imageId="@image.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

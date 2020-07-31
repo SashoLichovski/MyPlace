@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyPlace.Data
@@ -13,6 +10,6 @@ namespace MyPlace.Data
         {
         }
 
-        public DbSet<Image> Images { get; set; }
+        public DbSet<EntityImage> Images { get; set; }
     }
 }

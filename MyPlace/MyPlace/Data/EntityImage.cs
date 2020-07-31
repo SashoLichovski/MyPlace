@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MyPlace.Data
 {
-    public class Image
+    public class EntityImage
     {
         public int Id { get; set; }
         [Required]
